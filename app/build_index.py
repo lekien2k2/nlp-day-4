@@ -9,10 +9,10 @@ DATA_DIR = Path("data")
 DATA_DIR.mkdir(exist_ok=True)
 
 
-print("📖 Đọc data/qa_viquad.csv ...")
-df = pd.read_csv(DATA_DIR / "qa_viquad.csv")
+print("📖 Đọc data/benchmark_viquad_v2_train.csv ...")
+df = pd.read_csv(DATA_DIR / "benchmark_viquad_v2_train.csv")
 questions = df["question"].astype(str).tolist()
-answers = df["gold"].astype(str).tolist()
+answers = df["ground_truth"].astype(str).tolist()  # Cột này là "ground_truth" trong benchmark files
 
 
 print("🧠 Nạp model embedding đa ngữ...")

@@ -7,12 +7,14 @@ ANSWER_PROMPT = (
 
 
 CRITIQUE_PROMPT = (
-"Bạn là người kiểm chứng.\n"
-"- Kiểm tra xem câu trả lời đề xuất có trả lời đúng câu hỏi hay không.\n"
-"- Nếu có điểm mơ hồ/không đúng, hãy chỉ ra ngắn gọn.\n"
-"- Viết \"Đáp án cuối\" bằng 1 câu ngắn gọn. Nếu không đủ bằng chứng, trả lời: \"Không đủ thông tin để trả lời.\"\n\n"
+"Bạn là người kiểm chứng chỉ dựa vào dữ liệu ViQuAD được cung cấp.\n"
+"QUAN TRỌNG: Chỉ sử dụng thông tin từ dataset ViQuAD, KHÔNG sử dụng kiến thức bên ngoài.\n\n"
+"- Kiểm tra xem câu trả lời đề xuất có phù hợp với câu hỏi hay không.\n"
+"- Nếu có điểm mơ hồ/không rõ ràng, hãy chỉ ra ngắn gọn.\n"
+"- Viết \"Đáp án cuối\" bằng 1 câu ngắn gọn dựa CHỈ trên dữ liệu ViQuAD.\n"
+"- Nếu không đủ thông tin từ dataset, trả lời: \"Không đủ thông tin trong dataset để trả lời.\"\n\n"
 "Câu hỏi: {question}\n"
-"Câu trả lời đề xuất: {candidate}\n\n"
-"Phản biện:\n"
+"Câu trả lời đề xuất từ dataset: {candidate}\n\n"
+"Phản biện (chỉ dựa vào dataset ViQuAD):\n"
 "Đáp án cuối:"
 )

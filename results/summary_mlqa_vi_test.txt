@@ -1,0 +1,38 @@
+
+=== BÁO CÁO NGHIÊN CỨU: REDUCING HALLUCINATIONS ===
+
+** 1. RESEARCH QUESTION **
+Liệu kỹ thuật Self-Critique prompting có giảm hallucination và cải thiện 
+factual accuracy so với direct prompting không?
+
+** 2. METHODOLOGY **
+- Dataset: MLQA_VI_TEST (1000 câu hỏi)
+- Model: Gemini 1.5 Pro
+- Baseline: Direct prompt đơn giản
+- Treatment: Self-Critique 3-step prompt (Initial Answer → Critique → Final Answer)
+- Evaluation: Similarity score với ground truth (threshold = 0.6)
+
+** 3. RESULTS **
+
+Baseline Accuracy:       0.00%
+Self-Critique Accuracy:  0.00%
+Improvement:             +0.00% (absolute)
+Relative Improvement:    +0.00%
+
+Average Similarity:
+  - Baseline:        0.0671
+  - Self-Critique: 0.0671
+  - Difference:      +0.0000
+
+** 4. CONCLUSION **
+
+Self-Critique prompting KHÔNG CHO THẤY SỰ KHÁC BIỆT so với baseline.
+Cần xem xét kỹ hơn các trường hợp cụ thể.
+
+
+** 5. DETAILED BREAKDOWN **
+Self-Critique performs better: 0 cases (0.0%)
+Baseline performs better:      0 cases (0.0%)
+Equal performance:           1000 cases (100.0%)
+
+===================================================

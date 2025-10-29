@@ -80,21 +80,30 @@ if btn and q.strip():
     st.markdown(f"**Câu trả lời (đề xuất):** {candidate_answer}")
     st.caption(f"Nguồn: câu hỏi gần nhất · score={best_score:.3f}")
 
-    # Optional self-critique via OpenAI
+    # Optional self-critique via OpenAI (chỉ dựa vào dataset ViQuAD)
     st.markdown("---")
     st.subheader("🟪 Self-Critique (tự phản biện)")
+    st.caption("⚠️ Chỉ sử dụng dữ liệu từ dataset ViQuAD, không dùng kiến thức bên ngoài")
     critique_text = None
     if want_crit and OPENAI_API_KEY and OpenAI:
         try:
             client = OpenAI(api_key=OPENAI_API_KEY)  # khởi tạo TRONG try/catch
+            
+            # Cung cấp thêm context từ dataset để AI hiểu rõ hơn về nguồn dữ liệu
+            context_info = f"Nguồn dữ liệu: Dataset ViQuAD (Vietnamese Question Answering Dataset)\n"
+            context_info += f"Câu hỏi gốc trong dataset: {questions[best_i]}\n"
+            context_info += f"Độ tin cậy semantic: {best_score:.3f}\n\n"
+            
             prompt = CRITIQUE_PROMPT.format(question=q, candidate=candidate_answer)
+            full_prompt = context_info + prompt
+            
             resp = client.chat.completions.create(
                 model="gpt-4o-mini",  # hoặc gpt-4-turbo / gpt-3.5-turbo nếu tài khoản không có 4o
-                messages=[{"role": "user", "content": prompt}],
+                messages=[{"role": "user", "content": full_prompt}],
                 temperature=0,
             )
             critique_text = resp.choices[0].message.content
-            st.text_area("Phản biện & Đáp án cuối", value=critique_text, height=200)
+            st.text_area("Phản biện & Đáp án cuối (chỉ dựa vào ViQuAD)", value=critique_text, height=200)
         except Exception as e:
             st.error(f"Không bật được Self-Critique (sẽ dùng Baseline). Lý do: {e}")
             st.text_area("Phản biện & Đáp án cuối", value=f"(Baseline) Đáp án cuối: {candidate_answer}", height=120)
